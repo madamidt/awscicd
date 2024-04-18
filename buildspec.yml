@@ -11,7 +11,10 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build --platform=linux/amd64  -t $IMAGE_REPO_NAME:$IMAGE_TAG -f DockerfileProd .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG 
+  test_image:
+      - docker run -d -p 80:80 --name utc-app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG 
+      - docker ps        
   post_build:
     commands:
       - echo Build completed on `date`
