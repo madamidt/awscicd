@@ -14,7 +14,7 @@ pipeline {
         }
         stage('docker build'){
             steps{
-                sh 'docker built -t awscid .'
+                sh 'docker build -t awscid .'
                 sh 'docker images'
             }
         }
